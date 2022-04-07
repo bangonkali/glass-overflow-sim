@@ -1,14 +1,24 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import { createRoot } from 'react-dom/client';
+import { SimWidget } from './SimWidget';
 import './index.css';
-import App from './App';
 import reportWebVitals from './reportWebVitals';
 
-ReactDOM.render(
+const container = document.getElementById('root');
+const root = createRoot(container!);
+root.render(
   <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-  document.getElementById('root')
+    <SimWidget
+      x={0}
+      y={0}
+      glassHeight={50}
+      glassWidth={30}
+      glasFontSize={8}
+      glassHorizontalMargin={0}
+      glassVerticalMargin={0}
+      pyramidMarginLeft={50}
+    />
+  </React.StrictMode>
 );
 
 // If you want to start measuring performance in your app, pass a function
