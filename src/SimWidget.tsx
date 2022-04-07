@@ -43,7 +43,7 @@ export const SimWidget: React.FC<SimWidget> = (props: SimWidget) => {
           <Rect
             width={maxWidth}
             height={maxHeight}
-            // fill="yellow"
+          // fill="yellow"
           />
           {
             sim.factory.getVolumePerLevel().map((v) => {
@@ -52,10 +52,12 @@ export const SimWidget: React.FC<SimWidget> = (props: SimWidget) => {
                 <Text
                   key={`l_${y}`}
                   fontSize={8}
+                  fontStyle={selectedGlass?.level === v.level ? 'bold' : 'normal'}
                   x={0}
                   y={y}
                   width={60}
                   fill="black"
+                  shadowBlur={selectedGlass?.level === v.level ? 5 : 0}
                   verticalAlign="middle"
                   height={props.glassHeight}
                   text={`${fmtNum(v.total)}`} />
