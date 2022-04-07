@@ -30,16 +30,15 @@ export const GlassWidget: React.FC<GlassWidgetProps> = (props: GlassWidgetProps)
             <Rect
                 x={props.x}
                 y={props.y + (props.height - fill)}
-                width={props.width}
-                height={fill}
-                fill={'green'}
-                shadowBlur={0}
+                width={props.width - 1}
+                height={fill - 1}
+                fill={props.isSelected ? 'red' : 'green'}
             />
             <Rect
                 x={props.x}
                 y={props.y}
-                width={props.width}
-                height={props.height}
+                width={props.width - 1}
+                height={props.height - 1}
                 stroke={'black'}
                 strokeWidth={1}
                 shadowBlur={props.isSelected ? 5 : 0}

@@ -29,7 +29,6 @@ export const SimWidget: React.FC<SimWidget> = (props: SimWidget) => {
   sim.factory.refine();
 
   const maxLevel = sim.factory.getMaxLevel()
-
   const maxHeight = ((props.glassHeight + props.glassVerticalMargin) * maxLevel) + props.glassHeight;
   const maxWidth = (props.glassWidth * (maxLevel + 1)) + props.pyramidMarginLeft;
 
@@ -44,7 +43,7 @@ export const SimWidget: React.FC<SimWidget> = (props: SimWidget) => {
           <Rect
             width={maxWidth}
             height={maxHeight}
-            fill="yellow"
+            // fill="yellow"
           />
           {
             sim.factory.getVolumePerLevel().map((v) => {

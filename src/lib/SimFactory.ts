@@ -1,5 +1,4 @@
 import { Glass } from "./Glass";
-import { Portion } from "./Portion";
 
 export class SimFactory {
     public levels: number[] = []

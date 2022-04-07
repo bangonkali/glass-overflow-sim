@@ -11,7 +11,7 @@ root.render(
     <SimWidget
       x={0}
       y={0}
-      glassHeight={50}
+      glassHeight={40}
       glassWidth={30}
       glasFontSize={8}
       glassHorizontalMargin={0}
