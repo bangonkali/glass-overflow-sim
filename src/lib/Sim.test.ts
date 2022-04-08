@@ -109,27 +109,57 @@ it("glass naming", () => {
   expect(glass.getName()).toBe(`L: 0 LI: 0 INST: 0 `);
 });
 
-it("glass 0,0 is addressable 0,0", () => {
+it("glass 0,0 is addressable 0,0 expect true", () => {
   const glass = new Glass(0, 0, 250, 0, new SimEngine());
   expect(glass.is({ level: 0, levelIndex: 0 })).toBe(true);
 });
 
-it("glass 0,0 is not addressable 0,1", () => {
+it("glass 0,0 is not addressable 0,1 expect false", () => {
   const glass = new Glass(0, 0, 250, 0, new SimEngine());
   expect(glass.is({ level: 0, levelIndex: 1 })).toBe(false);
 });
 
-it("glass 0,0 is not addressable by undefined", () => {
+it("glass 0,0 is not addressable by undefined expect false", () => {
   const glass = new Glass(0, 0, 250, 0, new SimEngine());
   expect(glass.is(undefined)).toBe(false);
 });
 
-it("glass is not - level not the same", () => {
+it("glass level not the same expect false", () => {
   const glass = new Glass(0, 0, 250, 0, new SimEngine());
   expect(glass.is({ level: 1, levelIndex: 0 })).toBe(false);
 });
 
-it("glass is not - index not the same", () => {
+it("glass index not the same expect false", () => {
   const glass = new Glass(0, 0, 250, 0, new SimEngine());
   expect(glass.is({ level: 0, levelIndex: 1 })).toBe(false);
+});
+
+it("glass level too high expect false", () => {
+  const glass = new Glass(0, 0, 250, 0, new SimEngine());
+  expect(glass.is({ level: 1000000, levelIndex: 1 })).toBe(false);
+});
+
+it("glass index too high expect false", () => {
+  const glass = new Glass(0, 0, 250, 0, new SimEngine());
+  expect(glass.is({ level: 0, levelIndex: 1000000 })).toBe(false);
+});
+
+it("glass index and level too high expect false", () => {
+  const glass = new Glass(0, 0, 250, 0, new SimEngine());
+  expect(glass.is({ level: 1000000, levelIndex: 1000000 })).toBe(false);
+});
+
+it("glass glass level negative expect false", () => {
+  const glass = new Glass(0, 0, 250, 0, new SimEngine());
+  expect(glass.is({ level: -1000000, levelIndex: 1000000 })).toBe(false);
+});
+
+it("glass level and index negative expect false", () => {
+  const glass = new Glass(0, 0, 250, 0, new SimEngine());
+  expect(glass.is({ level: -1000000, levelIndex: -1000000 })).toBe(false);
+});
+
+it("glass index negative expect false", () => {
+  const glass = new Glass(0, 0, 250, 0, new SimEngine());
+  expect(glass.is({ level: 1000000, levelIndex: -1000000 })).toBe(false);
 });

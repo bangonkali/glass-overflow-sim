@@ -2,6 +2,9 @@ import { IGlassAddress } from "./IGlassAddress";
 import { IPortion } from "./IPortion";
 import { SimEngine } from "./SimEngine";
 
+/**
+ * Simple Glass Class construct. A glass can take in portions of water.
+ */
 export class Glass {
   public left: Glass | undefined;
 
@@ -17,6 +20,10 @@ export class Glass {
     public engine: SimEngine
   ) {}
 
+  /**
+   * Used for finding out if this Glass is the one being addressed.
+   * @param address The address of the glass.
+   */
   public is(address: IGlassAddress | undefined) {
     if (address)
       return (
@@ -25,10 +32,16 @@ export class Glass {
     return false;
   }
 
+  /**
+   * Just for logging purposes.
+   */
   public getName(): string {
     return `L: ${this.level} LI: ${this.levelIndex} INST: ${this.instanceId} `;
   }
 
+  /**
+   * Combines all the contents to get the total.
+   */
   public getTotalContent(): number {
     const total = this.content
       .map((c) => c.volume)
@@ -38,6 +51,10 @@ export class Glass {
     return total;
   }
 
+  /**
+   * Add water to the top most Glass
+   * @param portion the portion of water to add in the top most glass.
+   */
   public pour(portion: IPortion) {
     this.content.push(portion);
 

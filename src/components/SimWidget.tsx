@@ -1,4 +1,4 @@
-import { Layer, Rect, Stage, Text } from "react-konva";
+import { Layer, Stage, Text } from "react-konva";
 import { GlassWidget } from "./GlassWidget";
 import { Sim } from "../lib/Sim";
 import { fmtNum } from "../utils/num";
@@ -17,13 +17,11 @@ export type SimWidgetProps = {
   pyramidMarginLeft: number;
   selectedGlass: IGlassAddress | undefined;
   onSelectGlass: (glassAddress: IGlassAddress) => void;
+  sim: Sim;
 };
 
 export const SimWidget: React.FC<SimWidgetProps> = (props: SimWidgetProps) => {
-  const sim = new Sim();
-  sim.root.pour({ volume: props.volume, id: 0 });
-
-  const maxLevel = sim.engine.getMaxLevel();
+  const maxLevel = props.sim.engine.getMaxLevel();
   const maxHeight =
     (props.glassHeight + props.glassVerticalMargin) * maxLevel +
     props.glassHeight;
@@ -39,8 +37,7 @@ export const SimWidget: React.FC<SimWidgetProps> = (props: SimWidgetProps) => {
   return (
     <Stage width={maxWidth} height={maxHeight} style={{ paddingRight: 50 }}>
       <Layer>
-        <Rect width={maxWidth} height={maxHeight} />
-        {sim.engine.getVolumePerLevel().map((v) => {
+        {props.sim.engine.getVolumePerLevel().map((v) => {
           const y = (props.glassHeight + props.glassVerticalMargin) * v.level;
           return (
             <Text
@@ -56,12 +53,12 @@ export const SimWidget: React.FC<SimWidgetProps> = (props: SimWidgetProps) => {
               shadowBlur={props.selectedGlass?.level === v.level ? 5 : 0}
               verticalAlign="middle"
               height={props.glassHeight}
-              text={`${fmtNum(v.total)}`}
+              text={`${v.level} Total: ${fmtNum(v.total)}`}
             />
           );
         })}
-        {sim.engine.levels.flatMap((level) => {
-          return sim.engine.glasses[level].map((glass, index) => {
+        {props.sim.engine.levels.flatMap((level) => {
+          return props.sim.engine.glasses[level].map((glass, index) => {
             const xOffset =
               (props.glassWidth + props.glassHorizontalMargin) / 2;
             const y = (props.glassHeight + props.glassVerticalMargin) * level;

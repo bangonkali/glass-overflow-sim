@@ -8,6 +8,8 @@ import {
 import { SimWidget } from "../components/SimWidget";
 import { IGlassAddress } from "../lib/IGlassAddress";
 import { useStrictMode } from "react-konva";
+import { Sim } from "../lib/Sim";
+import { fmtNum } from "../utils/num";
 
 const maxVolume = 20000;
 const initialVolume = 1586;
@@ -40,6 +42,18 @@ export const HomePage: React.FC = () => {
   const [waterVolume, setWaterVolume] = useState(initialVolume);
   const [address, setAddress] = useState<IGlassAddress>(initialAddress);
 
+  const sim = new Sim();
+  sim.root.pour({ volume: waterVolume, id: 0 });
+  const selectedGlass = address
+    ? sim.engine.getGlassByAddress(address)
+    : undefined;
+
+  const selectedSummaryText = selectedGlass
+    ? `Selected i${selectedGlass.level}:j${selectedGlass.levelIndex} = ${fmtNum(
+        selectedGlass.getTotalContent()
+      )}`
+    : "";
+
   return (
     <Stack
       disableShrink
@@ -71,7 +85,7 @@ export const HomePage: React.FC = () => {
               value={levelText}
               underlined
               onChange={(e, v) => {
-                if (v && Number(v) !== NaN) {
+                if (v && !isNaN(Number(v))) {
                   setLevelText(v);
                 }
               }}
@@ -86,7 +100,7 @@ export const HomePage: React.FC = () => {
               value={levelIndexText}
               underlined
               onChange={(e, v) => {
-                if (v && Number(v) !== NaN) {
+                if (v && !isNaN(Number(v))) {
                   setLevelIndexText(v);
                 }
               }}
@@ -105,13 +119,13 @@ export const HomePage: React.FC = () => {
                   ? 0
                   : Number(levelIndexText);
 
-                if (mVolume != NaN) {
+                if (!isNaN(mVolume)) {
                   if (mVolume > maxVolume) mVolume = maxVolume;
                   if (mVolume < 0) mVolume = 0;
                   setWaterVolume(mVolume);
                   setWaterVolumeText(mVolume.toString());
                   if (slider.current) {
-                    const a = slider.current;
+                    const a = slider.current as HTMLInputElement;
                     a.value = mVolume.toString();
                   }
                   console.log(`Number ${mVolume}`);
@@ -148,28 +162,29 @@ export const HomePage: React.FC = () => {
         </Stack>
       </Stack.Item>
 
-      <Stack.Item>
-        <Stack disableShrink>
-          <Stack.Item align="center">
-            <SimWidget
-              x={0}
-              y={0}
-              volume={waterVolume}
-              glassHeight={40}
-              glassWidth={30}
-              glasFontSize={8}
-              glassHorizontalMargin={0}
-              glassVerticalMargin={0}
-              pyramidMarginLeft={50}
-              selectedGlass={address}
-              onSelectGlass={(a) => {
-                setAddress(a);
-                setLevelText(a.level.toString());
-                setLevelIndexText(a.levelIndex.toString());
-              }}
-            />
-          </Stack.Item>
-        </Stack>
+      <Stack.Item align="center">
+        <SimWidget
+          x={0}
+          y={0}
+          volume={waterVolume}
+          glassHeight={40}
+          glassWidth={30}
+          glasFontSize={8}
+          glassHorizontalMargin={0}
+          glassVerticalMargin={0}
+          pyramidMarginLeft={50}
+          selectedGlass={address}
+          onSelectGlass={(a) => {
+            setAddress(a);
+            setLevelText(a.level.toString());
+            setLevelIndexText(a.levelIndex.toString());
+          }}
+          sim={sim}
+        />
+      </Stack.Item>
+
+      <Stack.Item align="center">
+        {selectedGlass ? <p>{selectedSummaryText}</p> : undefined}
       </Stack.Item>
     </Stack>
   );
