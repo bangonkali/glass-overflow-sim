@@ -17,23 +17,21 @@ on:
 jobs:
 
   build:
-
+    name: Build
     runs-on: ubuntu-latest
-
-    strategy:
-      matrix:
-        node-version: [16.x]
-
     steps:
 
     - name: Checkout
       uses: actions/checkout@v3
 
-    - name: Use Node.js ${{ matrix.node-version }}
+    - name: Use Node.js '16.x'
       uses: actions/setup-node@v3
       with:
-        node-version: ${{ matrix.node-version }}
+        node-version: '16.x'
         cache: 'npm'
+
+    - name: Setup Dependencies
+      run: npm install
 
     - name: Test Coverage
       run: npm run coverage
@@ -45,8 +43,9 @@ jobs:
       run: npm run build
   
   deploy:
-    
+    name: Deploy
     runs-on: ubuntu-latest
+    needs: build
     
     steps:
     - name: Deploy
