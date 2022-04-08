@@ -6,12 +6,12 @@ import {
   TextField,
 } from "@fluentui/react";
 import { SimWidget } from "../components/SimWidget";
-import { GlassAddress } from "../lib/GlassAddress";
+import { IGlassAddress } from "../lib/IGlassAddress";
 import { useStrictMode } from "react-konva";
 
 const maxVolume = 20000;
 const initialVolume = 1586;
-const initialAddress: GlassAddress = {
+const initialAddress: IGlassAddress = {
   level: 0,
   levelIndex: 0,
 };
@@ -38,7 +38,7 @@ export const HomePage: React.FC = () => {
   const [levelIndexText, setLevelIndexText] = useState("0");
 
   const [waterVolume, setWaterVolume] = useState(initialVolume);
-  const [address, setAddress] = useState<GlassAddress>(initialAddress);
+  const [address, setAddress] = useState<IGlassAddress>(initialAddress);
 
   return (
     <Stack

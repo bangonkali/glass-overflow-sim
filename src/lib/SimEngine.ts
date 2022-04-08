@@ -1,5 +1,5 @@
 import { Glass } from "./Glass";
-import { GlassAddress } from "./GlassAddress";
+import { IGlassAddress } from "./IGlassAddress";
 
 export class SimEngine {
   public levels: number[] = [];
@@ -38,7 +38,7 @@ export class SimEngine {
     });
   }
 
-  public getGlassByAddress(address: GlassAddress): Glass | undefined {
+  public getGlassByAddress(address: IGlassAddress): Glass | undefined {
     return this.glasses[address.level][address.levelIndex];
   }
 

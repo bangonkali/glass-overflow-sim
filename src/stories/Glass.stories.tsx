@@ -1,14 +1,12 @@
-import React from "react";
 import { ComponentStory, ComponentMeta } from "@storybook/react";
 import { GlassWidget } from "../components/GlassWidget";
 import { Glass } from "../lib/Glass";
-import { Portion } from "../lib/Portion";
 import { SimEngine } from "../lib/SimEngine";
 import { Stage, Layer } from "react-konva";
 
 const engine = new SimEngine();
 const root: Glass = engine.getGlass();
-root.pour(new Portion(250, 0));
+root.pour({ volume: 250, id: 0 });
 
 // More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 export default {

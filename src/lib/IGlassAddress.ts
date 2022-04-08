@@ -1,4 +1,4 @@
-export interface GlassAddress {
+export interface IGlassAddress {
   levelIndex: number;
   level: number;
 }

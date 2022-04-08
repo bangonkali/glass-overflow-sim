@@ -1,10 +1,9 @@
 import { Layer, Rect, Stage, Text } from "react-konva";
 import { GlassWidget } from "./GlassWidget";
 import { Sim } from "../lib/Sim";
-import { Portion } from "../lib/Portion";
 import { fmtNum } from "../utils/num";
 import { Glass } from "../lib/Glass";
-import { GlassAddress } from "../lib/GlassAddress";
+import { IGlassAddress } from "../lib/IGlassAddress";
 
 export type SimWidgetProps = {
   x: number;
@@ -16,13 +15,13 @@ export type SimWidgetProps = {
   glassHorizontalMargin: number;
   glassVerticalMargin: number;
   pyramidMarginLeft: number;
-  selectedGlass: GlassAddress | undefined;
-  onSelectGlass: (glassAddress: GlassAddress) => void;
+  selectedGlass: IGlassAddress | undefined;
+  onSelectGlass: (glassAddress: IGlassAddress) => void;
 };
 
 export const SimWidget: React.FC<SimWidgetProps> = (props: SimWidgetProps) => {
   const sim = new Sim();
-  sim.root.pour(new Portion(props.volume, 0));
+  sim.root.pour({ volume: props.volume, id: 0 });
 
   const maxLevel = sim.engine.getMaxLevel();
   const maxHeight =

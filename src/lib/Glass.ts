@@ -1,6 +1,6 @@
 import { isNullOrUndefined } from "util";
-import { GlassAddress } from "./GlassAddress";
-import { Portion } from "./Portion";
+import { IGlassAddress } from "./IGlassAddress";
+import { IPortion } from "./IPortion";
 import { SimEngine } from "./SimEngine";
 
 export class Glass {
@@ -8,7 +8,7 @@ export class Glass {
 
   public right: Glass | undefined;
 
-  public content: Portion[] = [];
+  public content: IPortion[] = [];
 
   constructor(
     public level: number,
@@ -18,7 +18,7 @@ export class Glass {
     public engine: SimEngine
   ) {}
 
-  public is(address: GlassAddress | undefined) {
+  public is(address: IGlassAddress | undefined) {
     if (address)
       return (
         this.level === address.level && this.levelIndex === address.levelIndex
@@ -39,7 +39,7 @@ export class Glass {
     return total;
   }
 
-  public pour(portion: Portion) {
+  public pour(portion: IPortion) {
     this.content.push(portion);
     // console.log(`${this.getName()} poured ${this.getTotalContent()}`)
 
@@ -63,14 +63,14 @@ export class Glass {
       // console.log(`${this.getName()} overflow of ${volumeToOverflow}`)
 
       // create portions to overflow half of overflowing version
-      const leftPortion = new Portion(
-        volumePerSideToOverflow,
-        overflowingPortion.id
-      );
-      const rightPortion = new Portion(
-        volumePerSideToOverflow,
-        overflowingPortion.id
-      );
+      const leftPortion = {
+        volume: volumePerSideToOverflow,
+        id: overflowingPortion.id,
+      };
+      const rightPortion = {
+        volume: volumePerSideToOverflow,
+        id: overflowingPortion.id,
+      };
 
       // console.log(`${this.getName()} pour left ${leftPortion.volume}`)
       if (this.left === undefined) {
