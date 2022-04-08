@@ -22,7 +22,7 @@ const textFieldThinStyles: Partial<ITextFieldStyles> = {
 };
 const textFieldStyles: Partial<ITextFieldStyles> = {
   fieldGroup: {
-    width: 50,
+    width: 60,
   },
 };
 
@@ -61,7 +61,7 @@ export const HomePage: React.FC = () => {
                 }
               }}
               styles={textFieldStyles}
-              maxLength={4}
+              maxLength={5}
             />
           </Stack.Item>
 
