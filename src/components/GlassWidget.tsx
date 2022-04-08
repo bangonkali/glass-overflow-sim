@@ -21,7 +21,7 @@ export const GlassWidget: React.FC<GlassWidgetProps> = (props: GlassWidgetProps)
 
     const fill = Math.min(
         props.height,
-        (props.glass.getTotalContent() / props.glass.max_capacity) * props.height
+        (props.glass.getTotalContent() / props.glass.maxCapacity) * props.height
     )
 
     return (
@@ -53,7 +53,7 @@ export const GlassWidget: React.FC<GlassWidgetProps> = (props: GlassWidgetProps)
                 fontSize={props.fontSize}
                 align="center"
                 verticalAlign="middle"
-                text={`${fmtNum(props.glass.getTotalContent())}`} />
+                text={`${fmtNum(props.glass.getTotalContent())}\n${props.glass.level}:${props.glass.levelIndex}`} />
         </Group>
     );
 }

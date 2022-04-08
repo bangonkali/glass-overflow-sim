@@ -1,4 +1,5 @@
 import { Glass } from "./Glass";
+import { GlassAddress } from "./GlassAddress";
 
 export class SimFactory {
     public levels: number[] = []
@@ -41,6 +42,10 @@ export class SimFactory {
         }
     }
 
+    public getGlassByAddress(address: GlassAddress): Glass | undefined {
+        return this.glasses[address.level][address.levelIndex];
+    }
+
     public getGlass(
         parent: Glass | undefined = undefined,
         max_capacity: number = 250,
@@ -54,9 +59,9 @@ export class SimFactory {
         }
 
         if (isLeftOrRoot) {
-            level_index = parent?.level_index ? parent?.level_index : 0
+            level_index = parent?.levelIndex ? parent?.levelIndex : 0
         } else {
-            level_index = parent?.level_index ? parent?.level_index + 1 : 1
+            level_index = parent?.levelIndex ? parent?.levelIndex + 1 : 1
         }
 
         // find glass or else create

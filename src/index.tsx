@@ -1,23 +1,16 @@
 import React from 'react';
 import { createRoot } from 'react-dom/client';
-import { SimWidget } from './SimWidget';
-import './index.css';
+import { HomePage } from './pages/HomePage';
+import { initializeIcons } from '@fluentui/react/lib/Icons';
 import reportWebVitals from './reportWebVitals';
+import './index.css';
 
+initializeIcons(/* optional base url */);
 const container = document.getElementById('root');
 const root = createRoot(container!);
 root.render(
   <React.StrictMode>
-    <SimWidget
-      x={0}
-      y={0}
-      glassHeight={40}
-      glassWidth={30}
-      glasFontSize={8}
-      glassHorizontalMargin={0}
-      glassVerticalMargin={0}
-      pyramidMarginLeft={50}
-    />
+    <HomePage />
   </React.StrictMode>
 );
 
