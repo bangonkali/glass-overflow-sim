@@ -1,0 +1,53 @@
+name: Build
+
+on:
+
+  push:
+    branches: 
+    - master
+    - develop
+    - feature/*
+
+  pull_request:
+    branches:
+    - master
+    - develop
+    - feature/*
+
+jobs:
+
+  build:
+
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [16.x]
+
+    steps:
+
+    - name: Checkout
+      uses: actions/checkout@v3
+
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v3
+      with:
+        node-version: ${{ matrix.node-version }}
+        cache: 'npm'
+
+    - name: Test Coverage
+      run: npm run coverage
+
+    - name: Lint
+      run: npm run lint
+
+    - name: Build
+      run: npm run build
+  
+  deploy:
+    
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Deploy
+      run: curl -X POST "https://api.cloudflare.com/client/v4/pages/webhooks/deploy_hooks/${{ secrets.CLOUDFLARE_DEPLOY_KEY }}"
