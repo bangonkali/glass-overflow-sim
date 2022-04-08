@@ -1,4 +1,4 @@
 export interface GlassAddress {
-    levelIndex: number;
-    level: number;
+  levelIndex: number;
+  level: number;
 }
