@@ -1,4 +1,3 @@
-import { isNullOrUndefined } from "util";
 import { IGlassAddress } from "./IGlassAddress";
 import { IPortion } from "./IPortion";
 import { SimEngine } from "./SimEngine";
@@ -41,13 +40,10 @@ export class Glass {
 
   public pour(portion: IPortion) {
     this.content.push(portion);
-    // console.log(`${this.getName()} poured ${this.getTotalContent()}`)
 
     if (this.getTotalContent() > this.maxCapacity) {
       // get the top most portion and distribute evenly left and right
-      const overflowingPortion = this.content.pop();
-
-      if (isNullOrUndefined(overflowingPortion)) return;
+      const overflowingPortion = this.content.pop() as IPortion;
 
       // calculate the remaining portion
       const volumeToRemain = this.maxCapacity - this.getTotalContent();
@@ -60,8 +56,6 @@ export class Glass {
       overflowingPortion.volume = volumeToRemain;
       this.content.push(overflowingPortion);
 
-      // console.log(`${this.getName()} overflow of ${volumeToOverflow}`)
-
       // create portions to overflow half of overflowing version
       const leftPortion = {
         volume: volumePerSideToOverflow,
@@ -72,13 +66,11 @@ export class Glass {
         id: overflowingPortion.id,
       };
 
-      // console.log(`${this.getName()} pour left ${leftPortion.volume}`)
       if (this.left === undefined) {
         this.left = this.engine.getGlass(this, this.maxCapacity, true);
       }
       this.left.pour(leftPortion);
 
-      // console.log(`${this.getName()} pour right ${rightPortion.volume}`)
       if (this.right === undefined) {
         this.right = this.engine.getGlass(this, this.maxCapacity, false);
       }
