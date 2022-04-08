@@ -23,9 +23,8 @@ export type SimWidgetProps = {
 export const SimWidget: React.FC<SimWidgetProps> = (props: SimWidgetProps) => {
   const sim = new Sim();
   sim.root.pour(new Portion(props.volume, 0));
-  sim.factory.refine();
 
-  const maxLevel = sim.factory.getMaxLevel();
+  const maxLevel = sim.engine.getMaxLevel();
   const maxHeight =
     (props.glassHeight + props.glassVerticalMargin) * maxLevel +
     props.glassHeight;
@@ -42,7 +41,7 @@ export const SimWidget: React.FC<SimWidgetProps> = (props: SimWidgetProps) => {
     <Stage width={maxWidth} height={maxHeight} style={{ paddingRight: 50 }}>
       <Layer>
         <Rect width={maxWidth} height={maxHeight} />
-        {sim.factory.getVolumePerLevel().map((v) => {
+        {sim.engine.getVolumePerLevel().map((v) => {
           const y = (props.glassHeight + props.glassVerticalMargin) * v.level;
           return (
             <Text
@@ -62,8 +61,8 @@ export const SimWidget: React.FC<SimWidgetProps> = (props: SimWidgetProps) => {
             />
           );
         })}
-        {sim.factory.levels.flatMap((level) => {
-          return sim.factory.glasses[level].map((glass, index) => {
+        {sim.engine.levels.flatMap((level) => {
+          return sim.engine.glasses[level].map((glass, index) => {
             const xOffset =
               (props.glassWidth + props.glassHorizontalMargin) / 2;
             const y = (props.glassHeight + props.glassVerticalMargin) * level;

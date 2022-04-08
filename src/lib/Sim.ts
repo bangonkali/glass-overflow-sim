@@ -1,8 +1,8 @@
 import { Glass } from "./Glass";
-import { SimFactory } from "./SimFactory";
+import { SimEngine } from "./SimEngine";
 
 export class Sim {
-  public factory = new SimFactory();
+  public engine = new SimEngine();
 
-  public root: Glass = this.factory.getGlass();
+  public root: Glass = this.engine.getGlass();
 }

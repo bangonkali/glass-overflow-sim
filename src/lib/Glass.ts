@@ -1,7 +1,7 @@
 import { isNullOrUndefined } from "util";
 import { GlassAddress } from "./GlassAddress";
 import { Portion } from "./Portion";
-import { SimFactory } from "./SimFactory";
+import { SimEngine } from "./SimEngine";
 
 export class Glass {
   public left: Glass | undefined;
@@ -15,7 +15,7 @@ export class Glass {
     public levelIndex: number,
     public maxCapacity: number,
     public instanceId: number,
-    public simFactory: SimFactory
+    public engine: SimEngine
   ) {}
 
   public is(address: GlassAddress | undefined) {
@@ -74,21 +74,21 @@ export class Glass {
 
       // console.log(`${this.getName()} pour left ${leftPortion.volume}`)
       if (this.left === undefined) {
-        this.left = this.simFactory.getGlass(this, this.maxCapacity, true);
+        this.left = this.engine.getGlass(this, this.maxCapacity, true);
       }
       this.left.pour(leftPortion);
 
       // console.log(`${this.getName()} pour right ${rightPortion.volume}`)
       if (this.right === undefined) {
-        this.right = this.simFactory.getGlass(this, this.maxCapacity, false);
+        this.right = this.engine.getGlass(this, this.maxCapacity, false);
       }
       this.right.pour(rightPortion);
     } else {
       if (this.left === undefined) {
-        this.left = this.simFactory.getGlass(this, this.maxCapacity, true);
+        this.left = this.engine.getGlass(this, this.maxCapacity, true);
       }
       if (this.right === undefined) {
-        this.right = this.simFactory.getGlass(this, this.maxCapacity, false);
+        this.right = this.engine.getGlass(this, this.maxCapacity, false);
       }
     }
   }
