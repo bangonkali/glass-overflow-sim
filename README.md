@@ -20,6 +20,8 @@ The limit for the Volume is 20,000. Selecting high numbers near the limit takes 
 
 ![Glass Oveflow Sim Banner Image](docs/select-slider.png)
 
+The solution is not optimized for mobile use.
+
 ## High Level Dev Notes
 
 Only 3 files are really used for the simulation. 
